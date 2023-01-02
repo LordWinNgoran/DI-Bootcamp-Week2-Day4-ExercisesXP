@@ -1,5 +1,12 @@
 
-// Exercise 1 : Information
+/****************************Week 2 Day 4 Exercise XP***************** */
+
+/**
+ * @author: N'GORAN Kouadio Jean Cyrille
+ * @description: Exercise XP DAY 4 WEek2
+ * Date : 30/12/2022
+ */
+
 
 // Part I : function with no parameters
 //1 Create a function called infoAboutMe() that takes no parameter.
@@ -98,11 +105,11 @@ let shoppingList = ["banana", "orange", "apple"];
 function myBill() {
     let priceTotal = 0;
     for (let indexShopping = 0; indexShopping < shoppingList.length; indexShopping++) {
-        if(!!stock[shoppingList[indexShopping]]){
-                priceTotal+=prices[shoppingList[indexShopping]]
+        if (!!stock[shoppingList[indexShopping]]) {
+            priceTotal += prices[shoppingList[indexShopping]]
         }
     }
-    return "The total price is : "+priceTotal;
+    return "The total price is : " + priceTotal;
 
 }
 
@@ -113,12 +120,95 @@ console.log(myBill());
 
 
 
+
+
+
 // Exercise 5 : What’s In My Wallet ?
 
 
 /* 1 Create a function named changeEnough(itemPrice, 
 amountOfChange) that receives two arguments : */
+/* In the function, determine whether or not you can afford the item */
+function changeEnough(itemPrice, amountOfChange) {
+    let sum = 0.25 * amountOfChange[0] +
+        0.1 * amountOfChange[1] +
+        0.05 * amountOfChange[2] +
+        0.01 * amountOfChange[3]
 
-function changeEnough(itemPrice, amountOfChange){
+    return sum >= itemPrice
+}
+// 3. Change format is [quarters, dimes, nickel, penny]
+// 4. Illutsration
+console.log(`For itemPrice: 14.11 and change: [2,100,0,0], changeEnough ? : ${changeEnough(14.11, [2, 100, 0, 0])}`)
+console.log(`For itemPrice: 0.75 and change: [0,0,20,5], changeEnough ? : ${changeEnough(0.75, [0, 0, 20, 5])}`)
 
+
+
+
+
+
+// Exercise 6 : Vacations Costs
+
+// 1. Define a function called hotelCost(). 
+// The hotel costs $140 per night. The function should return the total price of the hotel. 
+function hotelCost(nightNight) {
+    return nightNight * 140
+}
+
+// 2. Define a function called planeRideCost().
+// The function should return a different price depending on the location.
+function planeRideCost(destination) {
+    let prices = {
+        london: 183,
+        paris: 220,
+        other: 300
     }
+
+    return prices.hasOwnProperty(destination.toLowerCase()) ?
+        prices[destination.toLowerCase()] :
+        prices.other
+}
+
+// 3. Define a function called rentalCarCost().
+// It should ask the user for the number of days they would like to rent the car. 
+function rentalCarCost(numberOfDays) {
+    let total = numberOfDays * 40
+    if (numberOfDays > 10){
+        total -= total * 5 / 100
+    }
+    return total
+}
+
+// 4. Define a function called totalVacationCost() that returns the total cost of the user’s vacation by calling the 3 functions that you created above.
+// 5. Call the function totalVacationCost()
+// 6. Bonus: Instead of using a prompt inside the 3 first functions, only use a prompt inside the totalVacationCost() function. You need to change the 3 first functions, accordingly.
+(function totalVacationCost() {
+    // User input number of nights
+    let input,
+    nightNight = 0,
+        destination = "",
+        numberOfDays = 0
+
+    do {
+        input = prompt("How many nights would you like to stay in the hotel?")
+        if (!isNaN(input))
+        nightNight = Number(input)
+    } while (nightNight === 0)
+    // User input destination
+    do {
+        input = prompt("What is your destination?")
+        if (null !== input && /^\w+(\s?\w?)*$/.test(input))
+            destination = input.trim()
+    } while (destination === "")
+    // User input number of days
+    do {
+        input = prompt("How many days would you like to rent the car?")
+        if (!isNaN(input))
+            numberOfDays = Number(input)
+    } while (numberOfDays === 0)
+
+    console.log(`Number of nights: ${nightNight} / Hotel costs: ${hotelCost(nightNight)}`)
+    console.log(`Destination: ${destination} / Plan ride costs: ${planeRideCost(destination)}`)
+    console.log(`Number of Days: ${numberOfDays} / Car rental costs: ${rentalCarCost(numberOfDays)}`)
+    console.log(`Total vacation cost: ${(hotelCost(nightNight) + planeRideCost(destination) + rentalCarCost(numberOfDays))}`)
+})()
